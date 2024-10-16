@@ -1,23 +1,18 @@
-public class BVS1 {
+package model;
+
+public class Buch {
     String isbn;
-    int veroefdatum;
     String titel;
     String autor;
-    String zustand;
-    String genre;
-
-
-    // Geliehen oder nicht
+    int veroefdatum;
     boolean status;
 
 
-    public BVS1(String isbn, int veroefdatum, String titel, String autor, String zustand, String genre, boolean status) {
+    public Buch(String isbn, int veroefdatum, String titel, String autor, String zustand, String genre, boolean status) {
         this.isbn = isbn;
         this.veroefdatum = veroefdatum;
         this.titel = titel;
         this.autor = autor;
-        this.zustand = zustand;
-        this.genre = genre;
         this.status = status;
 
     }
@@ -54,22 +49,6 @@ public class BVS1 {
         this.autor = autor;
     }
 
-    public String getZustand() {
-        return zustand;
-    }
-
-    public void setZustand(String zustand) {
-        this.zustand = zustand;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -80,7 +59,7 @@ public class BVS1 {
 
     public void infos (){
         System.out.println("ISBN: " + isbn + "\nVeroeffentlickkeitsdatum: " + veroefdatum + "\nTitel: " + titel +
-                "\nAutor: " + autor + "\nZustand des Buches: " + zustand + "\nGenre: " + genre + "\nVerfügbar true/false: " + status);
+                "\nAutor: " + autor +  "\nVerfügbar true/false: " + status);
     }
 
 }
