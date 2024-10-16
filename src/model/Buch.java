@@ -4,16 +4,16 @@ public class Buch {
     String isbn;
     String titel;
     String autor;
-    int veroefdatum;
+    int verjahr;
     boolean status;
 
 
-    public Buch(String isbn, int veroefdatum, String titel, String autor, String zustand, String genre, boolean status) {
+    public Buch(String isbn, int verjahr, String titel, String autor) {
         this.isbn = isbn;
-        this.veroefdatum = veroefdatum;
+        this.verjahr = verjahr;
         this.titel = titel;
         this.autor = autor;
-        this.status = status;
+        this.status = false;
 
     }
 
@@ -25,12 +25,12 @@ public class Buch {
         this.isbn = isbn;
     }
 
-    public int getVeroefdatum() {
-        return veroefdatum;
+    public int getVerjahr() {
+        return verjahr;
     }
 
-    public void setVeroefdatum(int veroefdatum) {
-        this.veroefdatum = veroefdatum;
+    public void setVerjahr(int verjahr) {
+        this.verjahr = verjahr;
     }
 
     public String getTitel() {
@@ -57,9 +57,12 @@ public class Buch {
         this.status = status;
     }
 
-    public void infos (){
-        System.out.println("ISBN: " + isbn + "\nVeroeffentlickkeitsdatum: " + veroefdatum + "\nTitel: " + titel +
-                "\nAutor: " + autor +  "\nVerfügbar true/false: " + status);
+    @Override
+    public String toString() {
+        String verliehen = status ? "Verliehen" : "Vorhanden";
+
+
+        return String.format("%-15s | %-15s | %-8s | %-8s | %s", titel, autor, verjahr, verliehen, isbn);
     }
 
 }
