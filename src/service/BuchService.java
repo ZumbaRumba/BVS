@@ -21,6 +21,18 @@ public class BuchService {
         return buecherListe;
     }
 
+    public boolean verliehenMarkieren(String titel){
+        for (Buch buch : buecherListe){
+            if (buch.getTitel().equalsIgnoreCase(titel)){
+                buch.setStatus(false);
+                System.out.println("Das Buch " + titel + " ist verliehen.");
+                return false;
+            }
+        }
+        System.out.println("Das Buch " + titel + " ist vorhanden.");
+        return true;
+    }
+
 
 
 

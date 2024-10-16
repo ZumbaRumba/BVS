@@ -13,7 +13,7 @@ public class Buch {
         this.verjahr = verjahr;
         this.titel = titel;
         this.autor = autor;
-        this.status = false;
+        this.status = true;
 
     }
 
