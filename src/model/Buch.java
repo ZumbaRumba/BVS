@@ -13,7 +13,7 @@ public class Buch {
         this.verjahr = verjahr;
         this.titel = titel;
         this.autor = autor;
-        this.status = true;
+        this.status = false;
 
     }
 
@@ -60,9 +60,10 @@ public class Buch {
     @Override
     public String toString() {
         String verliehen = status ? "Verliehen" : "Vorhanden";
+        //String vorhanden != status ? "Vorhanden" : "Verliehen";
 
 
-        return String.format("%-15s | %-15s | %-8s | %-8s | %s", titel, autor, verjahr, verliehen, isbn);
+        return String.format("%-15s | %-15s | %-15s | %-15s | %-15s", titel, autor, verjahr, isbn, verliehen);
     }
 
 }

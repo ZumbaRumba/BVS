@@ -13,7 +13,7 @@ public class KonsoleUI {
     }
 
 public void menu(){
-        boolean run = false;
+        boolean run = true;
         while (run) {
             showMenu();
             int auswahl = input.nextInt();
@@ -26,13 +26,17 @@ public void menu(){
                     buecherAnzeigenUI();
                     break;
                 case 3:
-                    buchStatusUI();
+                    buchStatusUI1();
+                    break;
+                case 4:
+                    buchStatusUI2();
                     break;
                 case 0:
-                    run = true;
+                    run = false;
+                    System.out.println("Programm beendet.");
                     break;
                 default:
-                    System.out.println("Ungültige Auswahl du Hund!!!!");
+                    System.out.println("Ungültige Auswahl.");
             }
         }
     }
@@ -41,7 +45,8 @@ private void showMenu() {
     System.out.println("\n*** Bibliothekverwaltung ***\n");
     System.out.println("1. Buch hinzufügen");
     System.out.println("2. Bücher anzeigen");
-    System.out.println("3. Als Verfügbar markieren");
+    System.out.println("3. Buch als verliehen markieren");
+    System.out.println("4. Buch als vorhanden markieren");
     System.out.println("0. Beenden");
     System.out.println("Auswahl: ");
     }
@@ -54,7 +59,7 @@ private void buchHinzufuegenUI() {
     System.out.println("Bitte Veröffentlichungsjahr eingeben: ");
     int jahr = input.nextInt();
     System.out.println("Bitte ISBN eingeben: ");
-    String isbn = input.nextLine();
+    String isbn = input.next();
     input.nextLine();
 
     Buch buch = new Buch(isbn, jahr, titel, autor);
@@ -65,18 +70,27 @@ private void buchHinzufuegenUI() {
     private void buecherAnzeigenUI() {
 
         System.out.println("\n*** Aktuelle Bücherliste ***\n");
-        System.out.printf("%-20s | %-10s | %-8s | %s", "Titel", "Autor", "Veröf. Jahr", "Verliehen/Vorhanden", "ISBN");
-        System.out.println("****************************************************************");
+        System.out.printf("%-15s | %-15s | %-15s | %-15s | %-15s", "Titel", "Autor", "Veröf. Jahr", "ISBN", "Verliehen/Vorhanden");
+        System.out.println("\n-------------------------------------------------------------------------------------");
         for (Buch buch : buchService.getBuecherListe()) {
             System.out.println(buch);
         }
 
     }
 
-    private void buchStatusUI () {
+    private void buchStatusUI1 () {
 
         System.out.print("Titel des Buches, welches als verliehen markiert werden soll: ");
         String titel = input.nextLine();
         buchService.verliehenMarkieren(titel);
+    }
+
+
+    private void buchStatusUI2 () {
+
+        System.out.print("Titel des Buches, welches als vorhanden markiert werden soll: ");
+        String titel = input.nextLine();
+        buchService.vorhandenMarkieren(titel);
+
     }
 }
