@@ -45,5 +45,8 @@ public class BuchService {
         System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
         return true;
     }
-    }
+
+
+
+}
 
