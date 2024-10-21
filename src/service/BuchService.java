@@ -24,8 +24,14 @@ public class BuchService {
     public boolean verliehenMarkieren(String titel) {
         for (Buch buch : buecherListe) {
             if (buch.getTitel().equalsIgnoreCase(titel)) {
-                buch.setStatus(true);
-                System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
+                if (buch.isStatus() == true) {
+                    buch.setStatus(false);
+                    System.out.println("Das Buch " + titel + " ist jetzt vorhanden.");
+                } else {
+                    buch.setStatus(true);
+                    System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
+                }
+
                 return true;
             }
         }
@@ -33,18 +39,18 @@ public class BuchService {
         return false;
     }
 
-    public boolean vorhandenMarkieren(String titel) {
-        for (Buch buch : buecherListe) {
-            if (buch.getTitel().equalsIgnoreCase(titel)) {
-                buch.setStatus(false);
-                System.out.println("Das Buch " + titel + " ist jetzt vorhanden.");
-                return false;
-            }
-        }
+    // public boolean vorhandenMarkieren(String titel) {
+       // for (Buch buch : buecherListe) {
+         //   if (buch.getTitel().equalsIgnoreCase(titel)) {
+           //     buch.setStatus(false);
+             //   System.out.println("Das Buch " + titel + " ist jetzt vorhanden.");
+               // return false;
+           // }
+        // }
 
-        System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
-        return true;
-    }
+        // System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
+       // return true;
+   // }
 
 
 

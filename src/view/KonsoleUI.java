@@ -28,9 +28,9 @@ public void menu(){
                 case 3:
                     buchStatusUI1();
                     break;
-                case 4:
-                    buchStatusUI2();
-                    break;
+                // case 4:
+                    // buchStatusUI2();
+                    // break;
                 case 0:
                     run = false;
                     System.out.println("Programm beendet.");
@@ -45,8 +45,8 @@ private void showMenu() {
     System.out.println("\n*** Bibliothekverwaltung ***\n");
     System.out.println("1. Buch hinzufügen");
     System.out.println("2. Bücher anzeigen");
-    System.out.println("3. Buch als verliehen markieren");
-    System.out.println("4. Buch als vorhanden markieren");
+    System.out.println("3. Buchstatus ändern");
+    // System.out.println("4. Buch als vorhanden markieren");
     System.out.println("0. Beenden");
     System.out.println("Auswahl: ");
     }
@@ -80,17 +80,17 @@ private void buchHinzufuegenUI() {
 
     private void buchStatusUI1 () {
 
-        System.out.print("Titel des Buches, welches als verliehen markiert werden soll: ");
+        System.out.print("Titel des Buches, welches als verliehen/vorhanden markiert werden soll: ");
         String titel = input.nextLine();
         buchService.verliehenMarkieren(titel);
     }
 
 
-    private void buchStatusUI2 () {
+   // private void buchStatusUI2 () {
 
-        System.out.print("Titel des Buches, welches als vorhanden markiert werden soll: ");
-        String titel = input.nextLine();
-        buchService.vorhandenMarkieren(titel);
+     //   System.out.print("Titel des Buches, welches als vorhanden markiert werden soll: ");
+       // String titel = input.nextLine();
+       // buchService.vorhandenMarkieren(titel);
 
-    }
+   // }
 }
