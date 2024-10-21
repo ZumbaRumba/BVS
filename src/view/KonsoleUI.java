@@ -23,10 +23,10 @@ public void menu(){
                     buchHinzufuegenUI();
                     break;
                 case 2:
-                    //buecherAnzeigenUI();
+                    buecherAnzeigenUI();
                     break;
                 case 3:
-                    //buchStatusUI();
+                    buchStatusUI();
                     break;
                 case 0:
                     run = true;
@@ -62,7 +62,21 @@ private void buchHinzufuegenUI() {
 
     }
 
+    private void buecherAnzeigenUI() {
 
+        System.out.println("\n*** Aktuelle Bücherliste ***\n");
+        System.out.printf("%-20s | %-10s | %-8s | %s", "Titel", "Autor", "Veröf. Jahr", "Verliehen/Vorhanden", "ISBN");
+        System.out.println("****************************************************************");
+        for (Buch buch : buchService.getBuecherListe()) {
+            System.out.println(buch);
+        }
 
+    }
 
+    private void buchStatusUI () {
+
+        System.out.print("Titel des Buches, welches als verliehen markiert werden soll: ");
+        String titel = input.nextLine();
+        buchService.verliehenMarkieren(titel);
+    }
 }
