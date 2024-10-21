@@ -1,4 +1,6 @@
 package view;
+
+// Methoden zur Steuerung des Programms
 import java.util.Scanner;
 import service.BuchService;
 import model.Buch;
@@ -28,9 +30,13 @@ public void menu(){
                 case 3:
                     buchStatusUI1();
                     break;
+
+                    // Alternative Methode um Buchstatus zu ändern
+
                 // case 4:
                     // buchStatusUI2();
                     // break;
+
                 case 0:
                     run = false;
                     System.out.println("Programm beendet.");
@@ -41,12 +47,17 @@ public void menu(){
         }
     }
 
+
+// Benutzeroberfläche
 private void showMenu() {
     System.out.println("\n*** Bibliothekverwaltung ***\n");
     System.out.println("1. Buch hinzufügen");
     System.out.println("2. Bücher anzeigen");
     System.out.println("3. Buchstatus ändern");
+
+    // Alternative Methode um Buchstatus zu ändern
     // System.out.println("4. Buch als vorhanden markieren");
+
     System.out.println("0. Beenden");
     System.out.println("Auswahl: ");
     }
@@ -82,15 +93,17 @@ private void buchHinzufuegenUI() {
 
         System.out.print("Titel des Buches, welches als verliehen/vorhanden markiert werden soll: ");
         String titel = input.nextLine();
-        buchService.verliehenMarkieren(titel);
+        buchService.verfuegbarkeit(titel);
     }
 
+
+
+    // Alternative Methode um Buchstatus zu ändern
 
    // private void buchStatusUI2 () {
 
      //   System.out.print("Titel des Buches, welches als vorhanden markiert werden soll: ");
        // String titel = input.nextLine();
        // buchService.vorhandenMarkieren(titel);
-
    // }
 }

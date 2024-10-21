@@ -1,22 +1,24 @@
 package model;
 
 public class Buch {
+
+    // Attribute des Buches
     String isbn;
     String titel;
     String autor;
     int verjahr;
     boolean status;
 
-
+    // Konstruktor erstellen
     public Buch(String isbn, int verjahr, String titel, String autor) {
         this.isbn = isbn;
         this.verjahr = verjahr;
         this.titel = titel;
         this.autor = autor;
         this.status = false;
-
     }
 
+    // Getter und Setter
     public String getIsbn() {
         return isbn;
     }
@@ -57,13 +59,10 @@ public class Buch {
         this.status = status;
     }
 
+    // String-Methode überschreiben (
     @Override
     public String toString() {
         String verliehen = status ? "Verliehen" : "Vorhanden";
-        //String vorhanden != status ? "Vorhanden" : "Verliehen";
-
-
         return String.format("%-15s | %-15s | %-15s | %-15s | %-15s", titel, autor, verjahr, isbn, verliehen);
     }
-
 }

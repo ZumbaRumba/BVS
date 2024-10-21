@@ -1,11 +1,13 @@
 package service;
 
+// Bücherliste erstellen/bearbeiten
 import model.Buch;
 import java.util.ArrayList;
 import java.util.List;
 public class BuchService {
     private List<Buch> buecherListe;
 
+    // Eine Array-Liste erstellen und verknüpfen
     public BuchService(){
         this.buecherListe = new ArrayList<>();
     }
@@ -17,11 +19,14 @@ public class BuchService {
         System.out.println("Buch hinzugefügt: " + buch.getTitel());
     }
 
+    // Methode zum Anzeigen der Bücherliste
     public List<Buch> getBuecherListe() {
         return buecherListe;
     }
 
-    public boolean verliehenMarkieren(String titel) {
+
+    // Boolean wird zur Eingabe der Verfügbarkeit des Buches genutzt
+    public boolean verfuegbarkeit(String titel) {
         for (Buch buch : buecherListe) {
             if (buch.getTitel().equalsIgnoreCase(titel)) {
                 if (buch.isStatus() == true) {
@@ -39,6 +44,8 @@ public class BuchService {
         return false;
     }
 
+    // Alternative Methode um Buchstatus zu ändern
+
     // public boolean vorhandenMarkieren(String titel) {
        // for (Buch buch : buecherListe) {
          //   if (buch.getTitel().equalsIgnoreCase(titel)) {
@@ -51,8 +58,5 @@ public class BuchService {
         // System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
        // return true;
    // }
-
-
-
 }
 
