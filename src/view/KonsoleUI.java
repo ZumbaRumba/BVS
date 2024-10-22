@@ -1,6 +1,7 @@
 package view;
 
 // Methoden zur Steuerung des Programms
+import java.util.List;
 import java.util.Scanner;
 import service.BuchService;
 import model.Buch;
@@ -30,6 +31,12 @@ public void menu(){
                 case 3:
                     buchStatusUI1();
                     break;
+                case 4:
+                    buchLoeschenUI();
+                    break;
+                case 5:
+                    buchSuchenUI();
+                    break;
 
                     // Alternative Methode um Buchstatus zu ändern
 
@@ -38,8 +45,9 @@ public void menu(){
                     // break;
 
                 case 0:
-                    run = false;
+                    buchService.buecherSpeichern();
                     System.out.println("Programm beendet.");
+                    run = false;
                     break;
                 default:
                     System.out.println("Ungültige Auswahl.");
@@ -54,6 +62,9 @@ private void showMenu() {
     System.out.println("1. Buch hinzufügen");
     System.out.println("2. Bücher anzeigen");
     System.out.println("3. Buchstatus ändern");
+    System.out.println("4. Buch löschen");
+    System.out.println("5. Buch suchen");
+
 
     // Alternative Methode um Buchstatus zu ändern
     // System.out.println("4. Buch als vorhanden markieren");
@@ -98,6 +109,39 @@ private void buchHinzufuegenUI() {
 
 
 
+    private void  buchLoeschenUI () {
+        System.out.println("Welcher Titel soll gelöscht werden.");
+        String titel = input.nextLine();
+        System.out.println("Soll " + titel + " wirklich gelöscht werden? (j/n)");
+        String zustimmungB = input.nextLine();
+        if (zustimmungB.equalsIgnoreCase("j")) {
+            buchService.buchLoeschen(titel);
+        } else {
+            System.out.println("Löschvorgang abgebrochen.");
+        }
+    }
+
+
+    private void buchSuchenUI() {
+        System.out.print("Suchbegriff: ");
+        String suchbegriff = input.nextLine();
+        List<Buch> suchErgebnisse = buchService.buchSuchen(suchbegriff);
+        if (suchErgebnisse.isEmpty()) {
+            System.out.println("Keine Treffer.");
+        } else {
+            System.out.println("\n--- Suchergebnisse ---");
+            buchListeAnzeigen(suchErgebnisse);
+        }
+    }
+
+
+    private void buchListeAnzeigen(List<Buch> liste) {
+        System.out.printf("%-15s | %-15s | %-15s | %-15s | %-15s", "Titel", "Autor", "Veröf. Jahr", "ISBN", "Verliehen/Vorhanden");
+        System.out.println("\n-------------------------------------------------------------------------------------");
+        for (Buch buch : liste) {
+            System.out.println(buch);
+        }
+    }
     // Alternative Methode um Buchstatus zu ändern
 
    // private void buchStatusUI2 () {

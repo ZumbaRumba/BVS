@@ -1,13 +1,30 @@
 package model;
 
-public class Buch {
+import java.io.Serializable;
+
+// Methode um die Daten in einer Textdatei zu hinterlegen
+
+public class Buch implements Serializable {
+
+
+    // Alternative Methode:
 
     // Attribute des Buches
-    String isbn;
-    String titel;
-    String autor;
-    int verjahr;
-    boolean status;
+    // String isbn;
+    // String titel;
+    // String autor;
+    // int verjahr;
+    // boolean status;
+
+    private static final long serialVersion = 1L;
+    private String titel;
+    private String autor;
+    private int verjahr;
+    private boolean status;
+    private String isbn;
+
+
+
 
     // Konstruktor erstellen
     public Buch(String isbn, int verjahr, String titel, String autor) {
