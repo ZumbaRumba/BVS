@@ -15,6 +15,7 @@ public class BuchService {
     // Eine Array-Liste erstellen und verknüpfen
     public BuchService(){
         this.buecherListe = new ArrayList<>();
+        datenLaden();
     }
 
 
