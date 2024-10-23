@@ -1,6 +1,7 @@
 package view;
 
-// Methoden zur Steuerung des Programms
+// Erstellen der Klasse "Konsole" zur Verwaltung der Bücher
+
 import java.util.List;
 import java.util.Scanner;
 import service.BuchService;
@@ -10,11 +11,12 @@ public class KonsoleUI {
     private BuchService buchService;
     private Scanner input;
 
-    public KonsoleUI(){
-    buchService = new BuchService();
-    input = new Scanner(System.in);
+    public KonsoleUI() {
+        buchService = new BuchService();
+        input = new Scanner(System.in);
     }
 
+// Menüsteuerung
 public void menu(){
         boolean run = true;
         while (run) {
@@ -29,7 +31,7 @@ public void menu(){
                     buecherAnzeigenUI();
                     break;
                 case 3:
-                    buchStatusUI1();
+                    buchStatusUI();
                     break;
                 case 4:
                     buchLoeschenUI();
@@ -37,13 +39,6 @@ public void menu(){
                 case 5:
                     buchSuchenUI();
                     break;
-
-                    // Alternative Methode um Buchstatus zu ändern
-
-                // case 4:
-                    // buchStatusUI2();
-                    // break;
-
                 case 0:
                     buchService.buecherSpeichern();
                     System.out.println("Programm beendet.");
@@ -55,8 +50,7 @@ public void menu(){
         }
     }
 
-
-// Benutzeroberfläche
+// Methode zur Anzeige des Menüs
 private void showMenu() {
     System.out.println("\n*** Bibliothekverwaltung ***\n");
     System.out.println("1. Buch hinzufügen");
@@ -64,15 +58,11 @@ private void showMenu() {
     System.out.println("3. Buchstatus ändern");
     System.out.println("4. Buch löschen");
     System.out.println("5. Buch suchen");
-
-
-    // Alternative Methode um Buchstatus zu ändern
-    // System.out.println("4. Buch als vorhanden markieren");
-
     System.out.println("0. Beenden");
-    System.out.println("Auswahl: ");
+    System.out.println("\nAuswahl: ");
     }
 
+// Methode "Buch hinzufügen"
 private void buchHinzufuegenUI() {
     System.out.println("Bitte den Titel eingeben: ");
     String titel = input.nextLine();
@@ -86,31 +76,28 @@ private void buchHinzufuegenUI() {
 
     Buch buch = new Buch(isbn, jahr, titel, autor);
     buchService.buchHinzufuegen(buch);
+}
 
-    }
-
+    // Methode "Bücher anzeigen"
     private void buecherAnzeigenUI() {
-
         System.out.println("\n*** Aktuelle Bücherliste ***\n");
         System.out.printf("%-15s | %-15s | %-15s | %-15s | %-15s", "Titel", "Autor", "Veröf. Jahr", "ISBN", "Verliehen/Vorhanden");
         System.out.println("\n-------------------------------------------------------------------------------------");
         for (Buch buch : buchService.getBuecherListe()) {
             System.out.println(buch);
         }
-
     }
 
-    private void buchStatusUI1 () {
-
+    // Methode zur Abfrage von der Verfügbarkeit des Buches
+    private void buchStatusUI() {
         System.out.print("Titel des Buches, welches als verliehen/vorhanden markiert werden soll: ");
         String titel = input.nextLine();
         buchService.verfuegbarkeit(titel);
     }
 
-
-
+    // Methode "Buch löschen"
     private void  buchLoeschenUI () {
-        System.out.println("Welcher Titel soll gelöscht werden.");
+        System.out.println("Welcher Titel soll gelöscht werden?");
         String titel = input.nextLine();
         System.out.println("Soll " + titel + " wirklich gelöscht werden? (j/n)");
         String zustimmungB = input.nextLine();
@@ -121,20 +108,20 @@ private void buchHinzufuegenUI() {
         }
     }
 
-
+    // Methode "Buch suchen"
     private void buchSuchenUI() {
-        System.out.print("Suchbegriff: ");
+        System.out.println("Suchbegriff: ");
         String suchbegriff = input.nextLine();
         List<Buch> suchErgebnisse = buchService.buchSuchen(suchbegriff);
         if (suchErgebnisse.isEmpty()) {
-            System.out.println("Keine Treffer.");
+            System.out.println("\nKeine Treffer.");
         } else {
-            System.out.println("\n--- Suchergebnisse ---");
+            System.out.println("\n--- Suchergebnisse ---\n");
             buchListeAnzeigen(suchErgebnisse);
         }
     }
 
-
+    // Methode zur Anzeige der gespeicherten Bücher
     private void buchListeAnzeigen(List<Buch> liste) {
         System.out.printf("%-15s | %-15s | %-15s | %-15s | %-15s", "Titel", "Autor", "Veröf. Jahr", "ISBN", "Verliehen/Vorhanden");
         System.out.println("\n-------------------------------------------------------------------------------------");
@@ -142,12 +129,4 @@ private void buchHinzufuegenUI() {
             System.out.println(buch);
         }
     }
-    // Alternative Methode um Buchstatus zu ändern
-
-   // private void buchStatusUI2 () {
-
-     //   System.out.print("Titel des Buches, welches als vorhanden markiert werden soll: ");
-       // String titel = input.nextLine();
-       // buchService.vorhandenMarkieren(titel);
-   // }
 }

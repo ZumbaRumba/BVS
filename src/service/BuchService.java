@@ -15,8 +15,8 @@ public class BuchService {
     // Eine Array-Liste erstellen und verknüpfen
     public BuchService(){
         this.buecherListe = new ArrayList<>();
+        datenLaden();
     }
-
 
     // Methode "Buch löschen"
     public boolean buchLoeschen (String titel) {
@@ -25,19 +25,18 @@ public class BuchService {
             Buch buch = buecherListe.get(i);
             if (buch.getTitel().equalsIgnoreCase(titel)) {
                 buecherListe.remove(i);
-                System.out.println("Das Buch " + titel + " wurde gelöscht.");
+                System.out.println("\nDas Buch " + titel + " wurde gelöscht.");
                 return true;
             }
         }
-
-        System.out.println("Das Buch " + titel + " wurde nicht gefunden");
+        System.out.println("\nDas Buch " + titel + " wurde nicht gefunden");
         return false;
     }
 
     // Methode "Buch hinzufügen"
     public void buchHinzufuegen(Buch buch){
         buecherListe.add(buch);
-        System.out.println("Buch hinzugefügt: " + buch.getTitel());
+        System.out.println("\nDas Buch " + buch.getTitel() + " wurde erfolgreich hinzugefügt.");
     }
 
     // Methode zum Anzeigen der Bücherliste
@@ -45,46 +44,42 @@ public class BuchService {
         return buecherListe;
     }
 
-
     // Boolean wird zur Eingabe der Verfügbarkeit des Buches genutzt
     public boolean verfuegbarkeit(String titel) {
+
         for (Buch buch : buecherListe) {
             if (buch.getTitel().equalsIgnoreCase(titel)) {
                 if (buch.isStatus() == true) {
                     buch.setStatus(false);
-                    System.out.println("Das Buch " + titel + " ist jetzt vorhanden.");
+                    System.out.println("\nDas Buch " + titel + " ist jetzt vorhanden.");
                 } else {
                     buch.setStatus(true);
-                    System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
+                    System.out.println("\nDas Buch " + titel + " ist jetzt verliehen.");
                 }
-
                 return true;
             }
         }
-        System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
+        System.out.println("Das Buch " + titel + " ist verliehen.");
         return false;
     }
 
+    // Methode "Buch suchen"
+    public List<Buch> buchSuchen(String suchbegriff) {
 
-
-        public List<Buch> buchSuchen(String suchbegriff) {
-
-            return buecherListe.stream()
-                    .filter(a -> a.getTitel().toLowerCase().contains(suchbegriff.toLowerCase())
-                            || a.getAutor().toLowerCase().contains(suchbegriff.toLowerCase())
-                            || a.getIsbn().toLowerCase().contains(suchbegriff.toLowerCase())
-                            || (a.getVerjahr() == Integer.parseInt(suchbegriff))
-                            || (a.isStatus() ? "verliehen" : "vorhanden").toLowerCase().contains(suchbegriff.toLowerCase()))
-                    .collect(Collectors.toList());
+        return buecherListe.stream()
+                .filter(a -> a.getTitel().toLowerCase().contains(suchbegriff.toLowerCase())
+                        || a.getAutor().toLowerCase().contains(suchbegriff.toLowerCase())
+                        || a.getIsbn().toLowerCase().contains(suchbegriff.toLowerCase())
+                        || String.valueOf(a.getVerjahr()).toLowerCase().contains(suchbegriff.toLowerCase())
+                        || (a.isStatus() ? "verliehen" : "vorhanden").toLowerCase().contains(suchbegriff.toLowerCase()))
+                            .collect(Collectors.toList());
         }
 
     // Speicherung der Daten in die Textdatei
-
-    public void buecherSpeichern(){
+    public void buecherSpeichern() {
         try {
             File bvs = new File(BVS_PFAD);
             File verzeichnis = bvs.getParentFile();
-
             if (verzeichnis != null && !verzeichnis.exists()) {
                 verzeichnis.mkdirs(); // Erstellt alle nicht existierenden Verzeichnisse
             }
@@ -98,10 +93,7 @@ public class BuchService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
 
     // Datenpersistenz: Daten laden
     @SuppressWarnings("unchecked")
@@ -119,19 +111,3 @@ public class BuchService {
         }
     }
 }
-    // Alternative Methode um Buchstatus zu ändern
-
-    // public boolean vorhandenMarkieren(String titel) {
-       // for (Buch buch : buecherListe) {
-         //   if (buch.getTitel().equalsIgnoreCase(titel)) {
-           //     buch.setStatus(false);
-             //   System.out.println("Das Buch " + titel + " ist jetzt vorhanden.");
-               // return false;
-           // }
-        // }
-
-        // System.out.println("Das Buch " + titel + " ist jetzt verliehen.");
-       // return true;
-   // }
-
-
