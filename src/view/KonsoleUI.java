@@ -1,6 +1,6 @@
 package view;
 
-// Erstellen der Klasse "Konsole" zur Verwaltung der Bücher
+// ***Erstellen der Klasse "Konsole" zur Verwaltung der Bücher***
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +17,7 @@ public class KonsoleUI {
     }
 
 // Menüsteuerung
-public void menu(){
+public void menu() {
         boolean run = true;
         while (run) {
             showMenu();

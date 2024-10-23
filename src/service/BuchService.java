@@ -83,7 +83,6 @@ public class BuchService {
             if (verzeichnis != null && !verzeichnis.exists()) {
                 verzeichnis.mkdirs(); // Erstellt alle nicht existierenden Verzeichnisse
             }
-
             try (ObjectOutputStream buchAusgabe = new ObjectOutputStream(new FileOutputStream(bvs))) {
                 buchAusgabe.writeObject(buecherListe);
                 System.out.println("Das Buch wurde erfolgreich eingetragen.");
