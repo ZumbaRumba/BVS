@@ -3,18 +3,7 @@ package model;
 import java.io.Serializable;
 
 // Methode um die Daten in einer Textdatei zu hinterlegen
-
 public class Buch implements Serializable {
-
-
-    // Alternative Methode:
-
-    // Attribute des Buches
-    // String isbn;
-    // String titel;
-    // String autor;
-    // int verjahr;
-    // boolean status;
 
     private static final long serialVersion = 1L;
     private String titel;
@@ -22,8 +11,6 @@ public class Buch implements Serializable {
     private int verjahr;
     private boolean status;
     private String isbn;
-
-
 
 
     // Konstruktor erstellen
@@ -36,47 +23,22 @@ public class Buch implements Serializable {
     }
 
     // Getter und Setter
-    public String getIsbn() {
-        return isbn;
-    }
+    public String getIsbn() {return isbn;}
+    public void setIsbn(String isbn) {this.isbn = isbn;}
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
+    public int getVerjahr() {return verjahr;}
+    public void setVerjahr(int verjahr) {this.verjahr = verjahr;}
 
-    public int getVerjahr() {
-        return verjahr;
-    }
+    public String getTitel() {return titel;}
+    public void setTitel(String titel) {this.titel = titel;}
 
-    public void setVerjahr(int verjahr) {
-        this.verjahr = verjahr;
-    }
+    public String getAutor() {return autor;}
+    public void setAutor(String autor) {this.autor = autor;}
 
-    public String getTitel() {
-        return titel;
-    }
+    public boolean isStatus() {return status;}
+    public void setStatus(boolean status) {this.status = status;}
 
-    public void setTitel(String titel) {
-        this.titel = titel;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    // String-Methode überschreiben (
+    // String-Methode überschreiben
     @Override
     public String toString() {
         String verliehen = status ? "Verliehen" : "Vorhanden";
