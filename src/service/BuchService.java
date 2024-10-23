@@ -101,7 +101,7 @@ public class BuchService {
         if (bvs.exists()) {
             try (ObjectInputStream buchEingabe = new ObjectInputStream(new FileInputStream(bvs))) {
                 buecherListe = (List<Buch>) buchEingabe.readObject();
-                System.out.println("Das Buch wurde erfolgreich geladen.");
+                System.out.println("Die Bücher wurden erfolgreich geladen.");
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Fehler beim Laden des Buches: " + e.getMessage());
             }
@@ -110,7 +110,7 @@ public class BuchService {
         }
     }
 
-    public void close() {
-        close();
-    }
+  // public void close() {
+    //    close();
+    //}
 }

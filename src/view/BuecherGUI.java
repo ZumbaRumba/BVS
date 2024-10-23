@@ -83,7 +83,7 @@ public class BuecherGUI extends Application {
             String isbn = isbnField.getText();
 
             if(titel.isEmpty()) {
-               // showAlert("Fehler", "Titel darf nicht leer sein.");
+               showAlert("Fehler", "Titel darf nicht leer sein.");
                 return;
             }
 
@@ -138,14 +138,18 @@ public class BuecherGUI extends Application {
         TableColumn<Buch, Integer> verjahrColumn = new TableColumn<>("Veröf. Jahr");
         verjahrColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getVerjahr()).asObject());
 
+        TableColumn<Buch, String> statusColumn = new TableColumn<>("Status");
+        statusColumn.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden")
+        );
 
 
-        TableColumn<Buch, String> statusColumn = new TableColumn<>("Verfügbarkeit");
-        statusColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden"));
+       // TableColumn<Buch, String> statusColumn = new TableColumn<>("Verfügbarkeit");
+       // statusColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden"));
 
 
 
-        tableView.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn);
+        tableView.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn,statusColumn);
 
     // Daten laden
         tableView.getItems().addAll(buchService.getBuecherListe());
@@ -163,11 +167,21 @@ public class BuecherGUI extends Application {
         }
     });
 
+       // Button searchButton = new Button("Buch suchen");
+       // searchButton.setOnAction(e -> {
+            //Buch selectedBuch = tableView.getSelectionModel().getSelectedItem();
+         //   if (selectedBuch != null) {
+              //  buchService.buchSuchen(selectedBuch.getTitel());
+             //   showAlert("Erfolg", "Buch gefunden.");
+               // showListView();
+            //} else {
+                //showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
+           // }
+        //});
 
 
 
-
-        Button statusButton = new Button("Als verliehen markieren");
+        Button statusButton = new Button("Status ändern ");
         statusButton.setOnAction(e -> {
             Buch selectedBook = tableView.getSelectionModel().getSelectedItem();
             if (selectedBook != null) {
@@ -208,7 +222,7 @@ public class BuecherGUI extends Application {
 
     @Override
     public void stop() throws Exception {
-        buchService.close();
+       buchService.buecherSpeichern();
         super.stop();
     }
     public static void main(String[] args) {
