@@ -45,6 +45,7 @@ public class BuecherGUI extends Application {
         primaryStage.show();
     }
 
+
         //Button changeStatusButton = new Button("Verfügbarkeit ändern");
         //changeStatusButton.setOnAction(e -> showChangeStatusView());
 
