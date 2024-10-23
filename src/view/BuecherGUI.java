@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 
+// Erstellen einer grafischen Oberfläche
 public class BuecherGUI extends Application {
 
     private BuchService buchService;
@@ -23,6 +24,7 @@ public class BuecherGUI extends Application {
         showMainMenu();
     }
 
+    // Haupmenü
     private void showMainMenu() {
 
         // Layout
@@ -45,15 +47,7 @@ public class BuecherGUI extends Application {
         primaryStage.show();
     }
 
-        //Button changeStatusButton = new Button("Verfügbarkeit ändern");
-        //changeStatusButton.setOnAction(e -> showChangeStatusView());
-
-        //Button deleteBookButton = new Button("Buch löschen");
-        //deleteBookButton.setOnAction(e -> showDeleteBookView());
-
-        //Button searchBookButton = new Button("Buch suchen");
-        //searchBookButton.setOnAction(e -> showSearchBookView());
-
+    // Eingabe des Buches
     private void showAddBookView() {
         // Layout
         VBox root = new VBox(10);
@@ -75,6 +69,7 @@ public class BuecherGUI extends Application {
         TextField isbnField = new TextField();
         isbnField.setPromptText("ISBN des Buches eingeben:");
 
+
         Button addButton = new Button("Buch hinzufügen");
         addButton.setOnAction(e -> {
             String titel = titelField.getText();
@@ -83,7 +78,6 @@ public class BuecherGUI extends Application {
             String isbn = isbnField.getText();
 
             if(titel.isEmpty()) {
-               // showAlert("Fehler", "Titel darf nicht leer sein.");
                 return;
             }
 
@@ -116,8 +110,9 @@ public class BuecherGUI extends Application {
         primaryStage.show();
     }
 
-
+    // Erstellen einer Box mit einer Liste
     private void showListView() {
+
         // Layout
         VBox root = new VBox(10);
         root.setPadding(new Insets(15));
@@ -138,12 +133,8 @@ public class BuecherGUI extends Application {
         TableColumn<Buch, Integer> verjahrColumn = new TableColumn<>("Veröf. Jahr");
         verjahrColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getVerjahr()).asObject());
 
-
-
         TableColumn<Buch, String> statusColumn = new TableColumn<>("Verfügbarkeit");
         statusColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden"));
-
-
 
         tableView.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn);
 
@@ -151,7 +142,7 @@ public class BuecherGUI extends Application {
         tableView.getItems().addAll(buchService.getBuecherListe());
 
     // Buttons
-    Button deleteButton = new Button("Aufgabe löschen");
+    Button deleteButton = new Button("Buch löschen");
         deleteButton.setOnAction(e -> {
         Buch selectedTask = tableView.getSelectionModel().getSelectedItem();
         if (selectedTask != null) {
@@ -162,10 +153,6 @@ public class BuecherGUI extends Application {
             showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
         }
     });
-
-
-
-
 
         Button statusButton = new Button("Als verliehen markieren");
         statusButton.setOnAction(e -> {
@@ -178,9 +165,6 @@ public class BuecherGUI extends Application {
                 showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
             }
         });
-
-
-
 
         Button addButton = new Button("Neues Buch hinzufügen");
         addButton.setOnAction(e -> showAddBookView());
@@ -198,6 +182,7 @@ public class BuecherGUI extends Application {
         primaryStage.show();
     }
 
+    // Warntext falls die Titel-Spalte leer eingegeben wird
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -208,12 +193,10 @@ public class BuecherGUI extends Application {
 
     @Override
     public void stop() throws Exception {
-        BuchService.close();
+        buchService.buecherSpeichern();
         super.stop();
     }
 
-
-    }
 
     public static void main(String[] args) {
         launch(args);
