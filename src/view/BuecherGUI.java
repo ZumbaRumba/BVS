@@ -1,6 +1,7 @@
 package view;
 
 import model.Buch;
+import repo.buecherRepo;
 import service.BuchService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -153,7 +154,7 @@ public class BuecherGUI extends Application {
         tableView.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn,statusColumn);
 
     // Daten laden
-        tableView.getItems().addAll(buchService.getBuecherListe());
+        tableView.getItems().addAll(buchService.getbuecher());
 
     // Buttons
     Button deleteButton = new Button("Buch löschen");
@@ -223,7 +224,7 @@ public class BuecherGUI extends Application {
 
     @Override
     public void stop() throws Exception {
-       buchService.buecherSpeichern();
+       buchService.close();
         super.stop();
     }
     public static void main(String[] args) {

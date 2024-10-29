@@ -48,7 +48,7 @@ public class buecherRepo {
         }
     }
 
-    public List<Buch> getbuecherList() {
+    public  List<Buch> getbuecher() {
         List<Buch> buecher = new ArrayList<>();
         String query = "SELECT titel, autor, isbn, verjahr, status FROM buecher";
         try (Statement stmt = connection.createStatement();

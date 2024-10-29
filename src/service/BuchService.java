@@ -14,11 +14,11 @@ public class BuchService {
 
     public void buchHinzufuegen(Buch buch) {
         repository.buchHinzufuegen(buch);
-        System.out.println("Buch hinzugefügt: " + Buch.getTitel());
+        System.out.println("Buch hinzugefügt: " + buch.getTitel());
     }
 
-    public List<buecher> getbuecherList() {
-        return repository.getbuecherList();
+    public  List<Buch> getbuecher() {
+        return repository.getbuecher();
     }
 
     public void verfuegbarkeit(String titel) {

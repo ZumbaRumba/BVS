@@ -1,11 +1,12 @@
 package model;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
 // Methode um die Daten in einer Textdatei zu hinterlegen
-public class Buch implements Serializable {
+//implements Serializable
+public class Buch  {
 
-    private static final long serialVersion = 1L;
+  //  private static final long serialVersion = 1L;
     private String titel;
     private String autor;
     private int verjahr;
