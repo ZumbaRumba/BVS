@@ -36,11 +36,11 @@ public void menu() {
                 case 4:
                     buchLoeschenUI();
                     break;
-                case 5:
-                    buchSuchenUI();
-                    break;
+               // case 5:
+                    //buchSuchenUI();
+                    //break;
                 case 0:
-                    buchService.buecherSpeichern();
+                    buchService.close();
                     System.out.println("Programm beendet.");
                     run = false;
                     break;
@@ -83,7 +83,7 @@ private void buchHinzufuegenUI() {
         System.out.println("\n*** Aktuelle Bücherliste ***\n");
         System.out.printf("%-15s | %-15s | %-15s | %-15s | %-15s", "Titel", "Autor", "Veröf. Jahr", "ISBN", "Verliehen/Vorhanden");
         System.out.println("\n-------------------------------------------------------------------------------------");
-        for (Buch buch : buchService.getBuecherListe()) {
+        for (Buch buch : buchService.getbuecher()) {
             System.out.println(buch);
         }
     }
@@ -109,17 +109,17 @@ private void buchHinzufuegenUI() {
     }
 
     // Methode "Buch suchen"
-    private void buchSuchenUI() {
-        System.out.println("Suchbegriff: ");
-        String suchbegriff = input.nextLine();
-        List<Buch> suchErgebnisse = buchService.buchSuchen(suchbegriff);
-        if (suchErgebnisse.isEmpty()) {
-            System.out.println("\nKeine Treffer.");
-        } else {
-            System.out.println("\n--- Suchergebnisse ---\n");
-            buchListeAnzeigen(suchErgebnisse);
-        }
-    }
+   // private void buchSuchenUI() {
+      //  System.out.println("Suchbegriff: ");
+       // String suchbegriff = input.nextLine();
+       // List<Buch> suchErgebnisse = buchService.getbuecher(suchbegriff);
+       // if (suchErgebnisse.isEmpty()) {
+         //   System.out.println("\nKeine Treffer.");
+      //  } else {
+          //  System.out.println("\n--- Suchergebnisse ---\n");
+          //  buchListeAnzeigen(suchErgebnisse);
+       // }
+    //}
 
     // Methode zur Anzeige der gespeicherten Bücher
     private void buchListeAnzeigen(List<Buch> liste) {

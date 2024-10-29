@@ -10,7 +10,7 @@ public class test {
 
         BuchService buchService = new BuchService();
         buchService.buchHinzufuegen(lastSouls);
-        System.out.println(buchService.getBuecherListe());
+        System.out.println(buchService.getbuecher());
 
 
 
