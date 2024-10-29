@@ -89,7 +89,7 @@ public class BuecherGUI extends Application {
                 return;
             }
 
-            Buch buch = new Buch(titel, verjahr, autor, isbn);
+            Buch buch = new Buch(titel, autor, isbn, verjahr);
             buchService.buchHinzufuegen(buch);
 
             showAlert("Bravo", "Hast du guuuut gemacht.");
