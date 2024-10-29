@@ -35,7 +35,7 @@ public class buecherRepo {
         }
     }
     public void buchHinzufuegen(Buch buch) {
-        String query = "INSERT INTO aufgaben (titel, autor,isbn, verjahr, status) VALUES (?, ?, ?, ?,?)";
+        String query = "INSERT INTO buecher (titel, autor,isbn, verjahr, status) VALUES (?, ?, ?, ?,?)";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, buch.getTitel());
             pstmt.setString(2, buch.getAutor());
@@ -61,7 +61,7 @@ public class buecherRepo {
                         rs.getString("Titel"),
                         rs.getString("Autor")
                 );
-                buch.setStatus(rs.getBoolean("verliehen"));
+                buch.setStatus(rs.getBoolean("status"));
                 buecher.add(buch);
             }
         } catch (SQLException e) {
@@ -71,7 +71,7 @@ public class buecherRepo {
     }
 
     public void verfuegbarkeit(String titel) {
-        String query = "UPDATE buecher SET verliehen = 1 WHERE titel = ?";
+        String query = "UPDATE buecher SET status = 1 WHERE titel = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, titel);
             pstmt.executeUpdate();
