@@ -74,7 +74,7 @@ private void buchHinzufuegenUI() {
     String isbn = input.next();
     input.nextLine();
 
-    Buch buch = new Buch(isbn, jahr, titel, autor);
+    Buch buch = new Buch(titel, autor, isbn, jahr);
     buchService.buchHinzufuegen(buch);
 }
 

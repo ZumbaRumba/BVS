@@ -56,10 +56,12 @@ public class buecherRepo {
 
             while (rs.next()) {
                 Buch buch = new Buch(
-                        rs.getString("Isbn"),
-                        rs.getInt("verjahr"),
                         rs.getString("Titel"),
-                        rs.getString("Autor")
+                        rs.getString("Autor"),
+                        rs.getString("Isbn"),
+                        rs.getInt("verjahr")
+
+
                 );
                 buch.setStatus(rs.getBoolean("status"));
                 buecher.add(buch);

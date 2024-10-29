@@ -15,7 +15,9 @@ public class Buch  {
 
 
     // Konstruktor erstellen
-    public Buch(String isbn, int verjahr, String titel, String autor) {
+    public Buch(String titel, String autor, String isbn, int verjahr) {
+
+
         this.isbn = isbn;
         this.verjahr = verjahr;
         this.titel = titel;
