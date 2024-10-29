@@ -47,4 +47,6 @@ public class Buch  {
         String verliehen = status ? "Verliehen" : "Vorhanden";
         return String.format("%-15s | %-15s | %-15s | %-15s | %-15s", titel, autor, verjahr, isbn, verliehen);
     }
+
+
 }
