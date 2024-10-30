@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BuecherGUI extends Application {
 
@@ -147,13 +148,24 @@ public class BuecherGUI extends Application {
         deleteButton.setOnAction(e -> {
             Buch selectedTask = tableView.getSelectionModel().getSelectedItem();
             if (selectedTask != null) {
-                buchService.buchLoeschen(selectedTask.getTitel());
-                showAlert("Erfolg", "Buch gelöscht.");
-                showListView();
+                // Bestätigungsdialog anzeigen
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Bestätigung");
+                confirmationAlert.setHeaderText("Buch löschen");
+                confirmationAlert.setContentText("Bist du sicher, dass das Buch '" + selectedTask.getTitel() + "' gelöscht werden soll?");
+
+                // Benutzerantwort abfragen
+                Optional<ButtonType> result = confirmationAlert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    buchService.buchLoeschen(selectedTask.getTitel());
+                    showAlert("Erfolg", "Buch gelöscht.");
+                    showListView();
+                }
             } else {
                 showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
             }
         });
+
 
         Button statusButton = new Button("Status ändern ");
         statusButton.setOnAction(e -> {
