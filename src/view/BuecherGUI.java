@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.List;
 
 public class BuecherGUI extends Application {
 
@@ -25,7 +26,6 @@ public class BuecherGUI extends Application {
     }
 
     private void showMainMenu() {
-
         // Layout
         VBox root = new VBox(10);
         root.setPadding(new Insets(15));
@@ -38,23 +38,16 @@ public class BuecherGUI extends Application {
         Button showListButton = new Button("Liste anzeigen");
         showListButton.setOnAction(e -> showListView());
 
-        root.getChildren().addAll(titleLabel, addBuchButton, showListButton);
+        Button searchBookButton = new Button("Buch suchen");
+        searchBookButton.setOnAction(e -> showSearchBookView());
+
+        root.getChildren().addAll(titleLabel, addBuchButton, showListButton, searchBookButton);
 
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setTitle("BVS - Hauptmenü");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
-        //Button changeStatusButton = new Button("Verfügbarkeit ändern");
-        //changeStatusButton.setOnAction(e -> showChangeStatusView());
-
-        //Button deleteBookButton = new Button("Buch löschen");
-        //deleteBookButton.setOnAction(e -> showDeleteBookView());
-
-        //Button searchBookButton = new Button("Buch suchen");
-        //searchBookButton.setOnAction(e -> showSearchBookView());
 
     private void showAddBookView() {
         // Layout
@@ -85,7 +78,7 @@ public class BuecherGUI extends Application {
             String isbn = isbnField.getText();
 
             if(titel.isEmpty()) {
-               showAlert("Fehler", "Titel darf nicht leer sein.");
+                showAlert("Fehler", "Titel darf nicht leer sein.");
                 return;
             }
 
@@ -118,7 +111,6 @@ public class BuecherGUI extends Application {
         primaryStage.show();
     }
 
-
     private void showListView() {
         // Layout
         VBox root = new VBox(10);
@@ -145,43 +137,23 @@ public class BuecherGUI extends Application {
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden")
         );
 
+        tableView.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn, statusColumn);
 
-       // TableColumn<Buch, String> statusColumn = new TableColumn<>("Verfügbarkeit");
-       // statusColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden"));
-
-
-
-        tableView.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn,statusColumn);
-
-    // Daten laden
+        // Daten laden
         tableView.getItems().addAll(buchService.getbuecher());
 
-    // Buttons
-    Button deleteButton = new Button("Buch löschen");
+        // Buttons
+        Button deleteButton = new Button("Buch löschen");
         deleteButton.setOnAction(e -> {
-        Buch selectedTask = tableView.getSelectionModel().getSelectedItem();
-        if (selectedTask != null) {
-            buchService.buchLoeschen(selectedTask.getTitel());
-            showAlert("Erfolg", "Buch gelöscht.");
-            showListView();
-        } else {
-            showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
-        }
-    });
-
-       // Button searchButton = new Button("Buch suchen");
-       // searchButton.setOnAction(e -> {
-            //Buch selectedBuch = tableView.getSelectionModel().getSelectedItem();
-         //   if (selectedBuch != null) {
-              //  buchService.buchSuchen(selectedBuch.getTitel());
-             //   showAlert("Erfolg", "Buch gefunden.");
-               // showListView();
-            //} else {
-                //showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
-           // }
-        //});
-
-
+            Buch selectedTask = tableView.getSelectionModel().getSelectedItem();
+            if (selectedTask != null) {
+                buchService.buchLoeschen(selectedTask.getTitel());
+                showAlert("Erfolg", "Buch gelöscht.");
+                showListView();
+            } else {
+                showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
+            }
+        });
 
         Button statusButton = new Button("Status ändern ");
         statusButton.setOnAction(e -> {
@@ -194,9 +166,6 @@ public class BuecherGUI extends Application {
                 showAlert("Fehler", "Bitte wählen Sie ein Buch aus.");
             }
         });
-
-
-
 
         Button addButton = new Button("Neues Buch hinzufügen");
         addButton.setOnAction(e -> showAddBookView());
@@ -214,22 +183,70 @@ public class BuecherGUI extends Application {
         primaryStage.show();
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void showSearchBookView() {
+        // Layout
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(15));
+
+        // Suchfeld
+        TextField searchField = new TextField();
+        searchField.setPromptText("Suchbegriff eingeben");
+
+        Button searchButton = new Button("Suchen");
+        TableView<Buch> resultsTable = new TableView<>();
+
+        // Suchbutton-Action
+        searchButton.setOnAction(e -> {
+            String suchbegriff = searchField.getText();
+            if (suchbegriff.isEmpty()) {
+                showAlert("Fehler", "Suchbegriff darf nicht leer sein.");
+                return;
+            }
+
+            // Suche im BuchService
+            List<Buch> suchergebnisse = buchService.sucheBuch(suchbegriff);
+            resultsTable.getItems().clear(); // Vorherige Ergebnisse löschen
+            resultsTable.getItems().addAll(suchergebnisse); // Neue Ergebnisse hinzufügen
+        });
+
+        // Spalten für die Ergebnistabelle
+        TableColumn<Buch, String> titelColumn = new TableColumn<>("Titel");
+        titelColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTitel()));
+
+        TableColumn<Buch, String> autorColumn = new TableColumn<>("Autor");
+        autorColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getAutor()));
+
+        TableColumn<Buch, String> isbnColumn = new TableColumn<>("ISBN");
+        isbnColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getIsbn()));
+
+        TableColumn<Buch, Integer> verjahrColumn = new TableColumn<>("Veröf. Jahr");
+        verjahrColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getVerjahr()).asObject());
+
+        TableColumn<Buch, String> statusColumn = new TableColumn<>("Status");
+        statusColumn.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().isStatus() ? "Verliehen" : "Vorhanden")
+        );
+
+        resultsTable.getColumns().addAll(titelColumn, autorColumn, isbnColumn, verjahrColumn, statusColumn);
+
+        // Zurück-Button
+        Button backButton = new Button("Zurück zum Hauptmenü");
+        backButton.setOnAction(e -> showMainMenu());
+
+        root.getChildren().addAll(
+                new Label("Buch suchen"),
+                searchField,
+                searchButton,
+                resultsTable,
+                backButton
+        );
+
+        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setTitle("Buch suchen");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
-    @Override
-    public void stop() throws Exception {
-       buchService.close();
-        super.stop();
+    private void showAlert(String title, String message){
     }
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
-

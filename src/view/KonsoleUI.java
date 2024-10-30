@@ -40,7 +40,7 @@ public void menu() {
                     //buchSuchenUI();
                     //break;
                 case 0:
-                    buchService.close();
+                   // buchService.close();
                     System.out.println("Programm beendet.");
                     run = false;
                     break;

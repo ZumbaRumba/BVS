@@ -4,6 +4,7 @@ import model.Buch;
 import repo.buecherRepo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BuchService {
     private buecherRepo repository;
@@ -17,7 +18,7 @@ public class BuchService {
         System.out.println("Buch hinzugefügt: " + buch.getTitel());
     }
 
-    public  List<Buch> getbuecher() {
+    public List<Buch> getbuecher() {
         return repository.getbuecher();
     }
 
@@ -31,8 +32,17 @@ public class BuchService {
         System.out.println("Buch gelöscht: " + titel);
     }
 
+    // Neue Methode zum Suchen von Büchern
+    public List<Buch> sucheBuch(String suchbegriff) {
+        List<Buch> alleBuecher = repository.getbuecher();
+        return alleBuecher.stream()
+                .filter(buch -> buch.getTitel().toLowerCase().contains(suchbegriff.toLowerCase()) ||
+                        buch.getAutor().toLowerCase().contains(suchbegriff.toLowerCase())) // Hier kann auch nach Autor oder anderen Attributen gefiltert werden
+                .collect(Collectors.toList());
 
-    public void close() {
-        repository.close();
+
+        // public void close;
+        //     repository.close();
+
     }
 }
